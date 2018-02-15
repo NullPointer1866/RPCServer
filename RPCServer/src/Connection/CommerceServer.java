@@ -12,7 +12,6 @@ import org.apache.http.impl.nio.reactor.IOReactorConfig;
  * 
  * Based on Asynchronous File Server example found at
  * https://hc.apache.org/httpcomponents-core-4.4.x/httpcore-nio/examples/org/apache/http/examples/nio/NHttpFileServer.java
- * @author Patrick
  *
  */
 public class CommerceServer {
@@ -47,5 +46,4 @@ public class CommerceServer {
 			}
 		});
 	}
-
 }

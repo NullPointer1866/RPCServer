@@ -6,7 +6,7 @@ public class RequestParser {
 		
 	}
 	
-	public String parseMethod() {
+	public String parseMethod(String jsonToParse) {
 		return "void";
 	}
 }

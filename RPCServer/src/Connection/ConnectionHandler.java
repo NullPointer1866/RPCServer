@@ -2,7 +2,6 @@ package Connection;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 
 import org.apache.http.Header;
@@ -11,13 +10,18 @@ import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.MethodNotSupportedException;
+import org.apache.http.entity.ContentType;
+import org.apache.http.nio.entity.NStringEntity;
 import org.apache.http.nio.protocol.BasicAsyncRequestConsumer;
 import org.apache.http.nio.protocol.BasicAsyncResponseProducer;
 import org.apache.http.nio.protocol.HttpAsyncExchange;
 import org.apache.http.nio.protocol.HttpAsyncRequestConsumer;
 import org.apache.http.nio.protocol.HttpAsyncRequestHandler;
 import org.apache.http.protocol.HttpContext;
+
+import Parsing.RequestParser;
 
 /**
  * ConnectionHandler is responsible for handling the sending/receiving
@@ -44,6 +48,8 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 	private void handleInternal(HttpEntityEnclosingRequest request, HttpResponse response, HttpContext context) 
 			throws HttpException, IOException {
 		
+		RequestParser parser = new RequestParser();
+		
 		// Check to make sure this is a POST request
 		// This "guarantees" that there will be an entity
 		String method = request.getRequestLine()
@@ -55,10 +61,24 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 					+ " method not supported");
 		}
 		
+		// Get the entity
 		HttpEntity body = request.getEntity();
 		
+		// Pull the message from it
 		String jsonString = pullMessage(request, body);
 		
+		// Pass the string to the parser, which should return 
+		// the json response as a string
+		String responseMessage = parser.parseMethod(jsonString);
+		
+		// Build our return entity
+		final NStringEntity entity = new NStringEntity(
+				responseMessage,
+				ContentType.create("application/json"));
+		
+		// Attach the entity and set the status code
+		response.setStatusCode(HttpStatus.SC_OK);
+		response.setEntity(entity);
 	}
 
 	private String pullMessage(HttpEntityEnclosingRequest request, HttpEntity body)

@@ -20,6 +20,7 @@ import org.apache.http.nio.protocol.HttpAsyncExchange;
 import org.apache.http.nio.protocol.HttpAsyncRequestConsumer;
 import org.apache.http.nio.protocol.HttpAsyncRequestHandler;
 import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 
 import Parsing.RequestParser;
 
@@ -61,11 +62,8 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 					+ " method not supported");
 		}
 		
-		// Get the entity
-		HttpEntity body = request.getEntity();
-		
-		// Pull the message from it
-		String jsonString = pullMessage(request, body);
+		// Get the entity and pull the message from it
+		String jsonString = EntityUtils.toString(request.getEntity());
 		
 		// Pass the string to the parser, which should return 
 		// the json response as a string
@@ -81,20 +79,6 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 		response.setEntity(entity);
 	}
 
-	private String pullMessage(HttpEntityEnclosingRequest request, HttpEntity body)
-			throws UnsupportedOperationException, IOException {
-		
-		try(DataInputStream content = new DataInputStream(body.getContent())) {
-			
-			Header contentLength = request.getFirstHeader("Content-Length");
-			int len = Integer.parseInt(contentLength.getValue());
-			
-			byte[] raw_string = new byte[len];
-			content.readFully(raw_string, 0, len);
-			
-			return new String(raw_string);			
-		} 
-	}
 
 	@Override
 	public HttpAsyncRequestConsumer<HttpRequest> processRequest(HttpRequest arg0, HttpContext arg1)

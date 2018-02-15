@@ -39,7 +39,7 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 	@Override
 	public void handle(HttpRequest request, HttpAsyncExchange httpExchange, HttpContext context)
 			throws HttpException, IOException {
-		
+		System.out.println(">> Got request");
 		final HttpResponse response = httpExchange.getResponse();
 		handleInternal((HttpEntityEnclosingRequest) request, response, context);
 		httpExchange.submitResponse(new BasicAsyncResponseProducer(response));

@@ -30,12 +30,12 @@ public class CommerceServer {
 		// Build the server object
 		final HttpServer server = ServerBootstrap.bootstrap()
 				.setListenerPort(portNumber) // Tell it which port to listen on
-				.setServerInfo("Commerce/1.1") // Add the header (not needed?)
+				.setServerInfo("Test/1.1") // Add the header (not needed?)
 				.setIOReactorConfig(config) // Pass our config
 				.setExceptionLogger(ExceptionLogger.STD_ERR) // Setup error logging
 				.registerHandler("*", new ConnectionHandler()) // Add our handler to the server
 				.create(); // Create the server
-		
+		System.out.println(">> Created server");
 		// Start the server
 		server.start();
 		

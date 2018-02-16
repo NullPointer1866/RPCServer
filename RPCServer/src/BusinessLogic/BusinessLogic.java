@@ -24,7 +24,7 @@ public class BusinessLogic {
 	public static double purchaseItem(String name, int count) {
 		Item item = database.remove(name);
 		int current = item.getStock();
-		if (current < 0) {
+		if (current < count) {
 			database.put(name, item);
 			return -1;
 		}

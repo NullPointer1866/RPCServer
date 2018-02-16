@@ -46,7 +46,7 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 	private void handleInternal(HttpEntityEnclosingRequest request, HttpResponse response, HttpContext context) 
 			throws HttpException, IOException {
 		
-		RequestParser parser = new RequestParser();
+		
 		
 		// Check to make sure this is a POST request
 		// This "guarantees" that there will be an entity
@@ -62,9 +62,11 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 		// Get the entity and pull the message from it
 		String jsonString = EntityUtils.toString(request.getEntity());
 		
+		RequestParser parser = new RequestParser(jsonString);
+		
 		// Pass the string to the parser, which should return 
 		// the json response as a string
-		String responseMessage = parser.parseMethod(jsonString);
+		String responseMessage = parser.getResponse();
 		
 		// Build our return entity
 		final NStringEntity entity = new NStringEntity(

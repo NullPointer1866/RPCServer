@@ -20,6 +20,9 @@ public class RequestParser {
 	public String getResponse() {
 		String method = parseMethodName();
 		String response = callMethod(method);
+		
+		return response;
+	}
 
 /**
  * 

@@ -9,6 +9,11 @@ package Parsing;
  * by a single method if turning JSON into String
  * is trivial.
  *
+ * If these methods are declared static, it may help
+ * with asynchronous access. Static methods can be
+ * declared "synchronized" and only one thread can
+ * acess that method at a time, holds true for entire class 
+ * type rather than instance.
  */
 public class RequestParser {
 

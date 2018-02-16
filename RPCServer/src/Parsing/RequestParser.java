@@ -1,5 +1,4 @@
 package Parsing;
-
 import java.util.Collection;
 import java.util.Dictionary;
 import java.lang.reflect.*;
@@ -21,9 +20,23 @@ public class RequestParser {
 	public String getResponse() {
 		String method = parseMethodName();
 		String response = callMethod(method);
-		
-		return response;
-	}
+
+/**
+ * 
+ * Handles the parsing of JSON responses 
+ * either turning strings into JSON or 
+ * vice-versa
+ * 
+ * build methods may be able to be replaced
+ * by a single method if turning JSON into String
+ * is trivial.
+ *
+ * If these methods are declared static, it may help
+ * with asynchronous access. Static methods can be
+ * declared "synchronized" and only one thread can
+ * acess that method at a time, holds true for entire class 
+ * type rather than instance.
+ */
 	
 	
 	private String callMethod(String methodName) {
@@ -67,13 +80,23 @@ public class RequestParser {
 		return response;
 	}
 	
-
 	// determines name of method to call and calls method in business logic
+    	/**
+	 * Parses JSON entity sent by client 
+	 * Determines what method they are calling and calls it
+	 * Should eventually return the JSON response back to the server
+	 * (Return chain comes out through this method)
+	 * 
+	 * @param jsonToParse - The string representation of a 
+	 * JSON object to parse
+	 * 
+	 * @return the JSON response to the method query 
+	 * formatted as a string for entity packing
+	 */
 	public String parseMethodName() {
 		// get the method name
 		JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
 		String methodName = jobj.get("methodName").getAsString();
 		return methodName;
 	}
-
 }

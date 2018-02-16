@@ -1,11 +1,8 @@
 package Connection;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Locale;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;

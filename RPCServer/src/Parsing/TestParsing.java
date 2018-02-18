@@ -24,23 +24,29 @@ public class TestParsing {
 		BusinessLogic db = new BusinessLogic();
 		
 		BufferedReader reader = new BufferedReader(new FileReader(new File("requestExample.json")));
-		String[] json = new String[3];
+		String[] json = new String[9];
 		for (int i = 0; i < json.length; i++) {
 			json[i] = reader.readLine();
 		}
 		
 				
-		// 0: call to getItems with no filter
-		// 1: call to getItems with filter "cool"
-		// 2: call to purchaseItem with name "cool" and amount 4
+		// 0: call to getItems with no filter in the params element
+		// 1: call to getItems with no params element
+		// 2: call to getItems with filter "shoes"
+		// 3: call to purchaseItem with name "socks" and amount 4
+		// 4: call to purchaseItem with name 3 and amount "socks"
+		// 5: call to purchaseItem with name "shoes" and amount 500
+		// 6: call to purchaseItem with only one parameter
+		// 7: call to purchase Item with no params element
+		// 8: call to purchase Item with no arguments in the param element
 		for (int i = 0; i < json.length; i++) {
-			RequestParser parser = new RequestParser(json[i]);
+			RequestParser parser = new RequestParser();
 			System.out.print(i + ": ");
-			System.out.println(parser.getResponse());
+			System.out.println(parser.getResponse(json[i]) + "\n");
 		}
 		
-		
-//		RPCResponseToJson();
+		System.out.println("Test of RPCResponse.toJson method: ");
+		RPCResponseToJson();
 		
 	}
 

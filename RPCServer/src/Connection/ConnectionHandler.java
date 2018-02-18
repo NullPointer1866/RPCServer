@@ -45,34 +45,34 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 
 	private void handleInternal(HttpEntityEnclosingRequest request, HttpResponse response, HttpContext context) 
 			throws HttpException, IOException {
-		
-		
-		
+
+
+
 		// Check to make sure this is a POST request
 		// This "guarantees" that there will be an entity
 		String method = request.getRequestLine()
 				.getMethod()
 				.toUpperCase(Locale.ENGLISH);
-		
+
 		if(!method.equals("POST")) {
 			throw new MethodNotSupportedException(method 
 					+ " method not supported");
 		}
-		
+
 		// Get the entity and pull the message from it
 		String jsonString = EntityUtils.toString(request.getEntity());
-		
-		RequestParser parser = new RequestParser(jsonString);
-		
+
+		RequestParser parser = new RequestParser();
+
 		// Pass the string to the parser, which should return 
 		// the json response as a string
-		String responseMessage = parser.getResponse();
-		
+		String responseMessage = parser.getResponse(jsonString);
+
 		// Build our return entity
 		final NStringEntity entity = new NStringEntity(
 				responseMessage,
 				ContentType.create("application/json"));
-		
+
 		// Attach the entity and set the status code
 		response.setStatusCode(HttpStatus.SC_OK);
 		response.setEntity(entity);
@@ -82,7 +82,7 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 	@Override
 	public HttpAsyncRequestConsumer<HttpRequest> processRequest(HttpRequest arg0, HttpContext arg1)
 			throws HttpException, IOException {
-		
+
 		return new BasicAsyncRequestConsumer();
 	}
 }

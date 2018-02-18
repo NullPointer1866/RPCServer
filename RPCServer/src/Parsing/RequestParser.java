@@ -13,18 +13,27 @@ public class RequestParser {
 
 	private String json;
 
-	public RequestParser(String jsonString) {
-		json = jsonString;
-	}
+	
+	public RequestParser() {	}
 
-	public String getResponse() {
+	/**
+	 * Calls and returns the method specified in jsonString
+	 * @param jsonString the client request
+	 * @return the JSON payload to be sent back to the client
+	 */
+	public String getResponse(String jsonString) {
+		json = jsonString;
 		String method = parseMethodName();
 		String response = callMethod(method);
 
 		return response;
 	}
 
-
+/**
+ * Calls the method given by methodName in business logic
+ * @param methodName
+ * @return the JSON payload to be sent back to the client
+ */
 	private String callMethod(String methodName) {
 		RPCResponse response;
 
@@ -40,7 +49,10 @@ public class RequestParser {
 		return response.toJson();
 	}
 
-	// determines name of method to call and calls method in business logic
+	/** Determines name of method to call
+	 * 
+	 * @return the name of the method to call
+	 */
 	public String parseMethodName() {
 		// get the method name
 		JsonParser parser = new JsonParser();
@@ -59,33 +71,36 @@ public class RequestParser {
 		JsonElement arguments = jobj.get("params");
 		if (arguments == null || arguments.getAsJsonArray().size() != 2) {
 			// 2: missing parameter
-			jsonResponse.fault = "Error: Missing Parameters. Please include the name and amount (an integer) of the item you'd like to purchase.";
+			jsonResponse.fault = "Error: Incorrect Parameters. Please include the name and amount (an integer) of the item you would like to purchase.";
 			jsonResponse.status = 2;
 			return jsonResponse;
 		}
 		else {
 			JsonArray params = jobj.get("params").getAsJsonArray();
+			try {
+				String itemName = params.get(0).getAsString();
+				int count = params.get(1).getAsInt();
+				Double price = BusinessLogic.purchaseItem(itemName, count);
 
-			// now if we have an error with these, it's
-			// status 1: parameter type issue
-			// TODO: handle this possibility
-			String itemName = params.get(0).getAsString();
-			int count = params.get(1).getAsInt();
-			Double price = BusinessLogic.purchaseItem(itemName, count);
+				if (price < 0) {
+					jsonResponse.fault = "Error: Precondition violation. Incorrect item name or not enough items in stock";
+					jsonResponse.status = 3; // precondition violation
+				}
+				else
+					jsonResponse.addToResponse(price);
 
-			if (price < 0) {
-				jsonResponse.fault = "Error: not enough items in stock";
-				jsonResponse.status = 3; // precondition violation
 			}
-			else
-				jsonResponse.addToResponse(price);
-
-			return jsonResponse;
+			catch (NumberFormatException e) {
+				jsonResponse.fault = "Error: Parameter type issue. Please include the name and amount (an integer) of the item you would like to purchase.";
+				jsonResponse.status = 1; // param type issue
+				
+			}
+			
+			return jsonResponse;			
 		}
 	}
 
 	private RPCResponse getItems() {		
-		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		JsonObject jobj = parser.parse(json).getAsJsonObject();
 
@@ -101,10 +116,8 @@ public class RequestParser {
 
 		Collection<Item> coll = BusinessLogic.getItems(filter);
 
-		Type itemType = new TypeToken<Item>() {}.getType();
 		RPCResponse jsonResponse = new RPCResponse();
 		for(Item item : coll) {
-			//String j = gson.toJson(item, itemType);
 			jsonResponse.addToResponse(item);
 		}
 

@@ -11,8 +11,6 @@ import com.google.gson.reflect.TypeToken;
 public class RPCResponse {
 	double version;
 	int status;
-	// TODO: see if we can just do an Object[] instead?
-	//JsonArray response;
 	ArrayList<Object> response;
 	Object fault;
 
@@ -27,7 +25,6 @@ public class RPCResponse {
 		Gson gson=new Gson();
 		
 		response.add(resp);
-		//response.add(gson.fromJson(resp,JsonElement.class));
 	}
 	
 	public String toJson() {

@@ -43,9 +43,12 @@ public class BusinessLogic {
 		return items;
 	}
 	
-	// TODO finish this
+
 	public static double purchaseItem(String name, int count) {
 		Item item = database.remove(name);
+		if (item == null) {
+			return -1;
+		}
 		int current = item.getStock();
 		if (current < count) {
 			database.put(name, item);

@@ -43,7 +43,8 @@ public class RequestParser {
 	
 	
 	private String callMethod(String methodName) {
-		String response;
+		RPCResponse response;
+		
 		if (methodName == "purchaseItem") {
 			response = purchaseItem();
 		}
@@ -51,36 +52,55 @@ public class RequestParser {
 			response = getItems();
 		}
 		else
-			response = null;
-		return response;			
+			response = new RPCResponse();
+		
+		Gson g = new Gson();
+		return g.toJson(response);
 	}
 
-	private String purchaseItem() {
+	private RPCResponse purchaseItem() {
 		// turn json into an item, extract name
 		// wait this isn't what we want. We want to extract the parameters
 		JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
-		String itemName = jobj.get("name").getAsString();
-		int count = jobj.get("count").getAsInt();
+		JsonArray params = jobj.get("params").getAsJsonArray();
+		String itemName = params.get(0).getAsString();
+		int count = params.get(1).getAsInt();
 		Double price = BusinessLogic.purchaseItem(itemName, count);
 		String response;
-		if (price < 0)
-			response = "Error: not enough items in stock";
-		else
-			response = price.toString();
-
 		
-		return response;
+		RPCResponse jsonResponse = new RPCResponse();
+		JsonArray arr = new JsonArray();
+		
+		
+		if (price < 0) {
+			jsonResponse.fault = "Error: not enough items in stock";
+			jsonResponse.status = 3; // precondition violation
+		}
+		else
+			jsonResponse.addToResponse(price.toString());
+		
+		return jsonResponse;
 	}
 	
-	private String getItems() {
-		JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
-		String filter = jobj.get("filter").getAsString();
-		// get items, turn them into JSON
-		Collection<Item> dict = BusinessLogic.getItems(filter);
-		Type collType = new TypeToken<Collection<Item>>() {}.getType();
-		String response = new Gson().toJson(dict, collType);
-		// TODO: check string form
-		return response;
+	private RPCResponse getItems() {		
+		Gson gson = new Gson();
+		JsonObject jobj = gson.fromJson(json, JsonObject.class);
+		// TODO: figure out if this will be problematic if there is no filter / params is blank
+		JsonArray params = jobj.get("params").getAsJsonArray();
+		String filter = params.get(0).getAsString();
+		
+		// get items, turn them into JSONarray
+		Collection<Item> coll = BusinessLogic.getItems(filter);
+		JsonArray arr = new JsonArray();
+		for(Item item : coll) {
+			JsonElement j = gson.toJsonTree(item);
+			arr.add(j);
+		}
+		
+		RPCResponse jsonResponse = new RPCResponse();
+		jsonResponse.response = arr;
+
+		return jsonResponse;
 	}
 	
 	// determines name of method to call and calls method in business logic

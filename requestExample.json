@@ -1,7 +1,4 @@
-{"version":1.0,"status":0,"response":{"elements":["hello","world"]}}
-
-{
-    "version" : 1.0,
-    "methodName" : "name",
-    "params" : [ param_desc1, ... , param_desc_n  ]
-}
+{"version" : 1.0, "methodName" : "getItems",  "params" : [ ]}
+{"version" : 1.0, "methodName" : "getItems",  "params" : [ "socks" ]}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ "socks", 2 ]}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ 3, "shoes" ]}

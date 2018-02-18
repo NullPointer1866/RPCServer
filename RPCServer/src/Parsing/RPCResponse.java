@@ -1,6 +1,7 @@
 package Parsing;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -11,7 +12,8 @@ public class RPCResponse {
 	double version;
 	int status;
 	// TODO: see if we can just do an Object[] instead?
-	JsonArray response;
+	//JsonArray response;
+	ArrayList<Object> response;
 	Object fault;
 
 	public RPCResponse() {
@@ -19,12 +21,13 @@ public class RPCResponse {
 		status = 0;
 	}
 	
-	public void addToResponse(String resp) {
+	public void addToResponse(Object resp) {
 		if (response == null)
-			response = new JsonArray();
+			response = new ArrayList<Object>();
 		Gson gson=new Gson();
 		
-		response.add(gson.fromJson(resp,JsonElement.class));
+		response.add(resp);
+		//response.add(gson.fromJson(resp,JsonElement.class));
 	}
 	
 	public String toJson() {

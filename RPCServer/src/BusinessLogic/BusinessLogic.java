@@ -2,6 +2,7 @@ package BusinessLogic;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,8 +12,22 @@ public class BusinessLogic {
 	
 	public BusinessLogic() {
 		database = null;
+		ForTesting_DeleteLater();
 	}
 	
+	/**
+	 * initialize the database and put a few items in it just for testing
+	 */
+	private static void ForTesting_DeleteLater() {
+		database = new HashMap<String, Item>();
+		Item socks = new Item("socks", 12, 2.5);
+		database.put("socks", socks);
+		
+		Item shoes = new Item("shoes", 5, 15.0);
+		database.put("shoes", shoes);
+	}
+	
+	// TODO: test this once we have a DB
 	public static Collection<Item> getItems(String filter) {
 		if (filter == null)
 			return database.values();

@@ -36,8 +36,7 @@ public class RequestParser {
 		else
 			response = new RPCResponse();
 		
-		Gson g = new Gson();
-		return g.toJson(response);
+		return response.toJson();
 	}
 
 	// determines name of method to call and calls method in business logic

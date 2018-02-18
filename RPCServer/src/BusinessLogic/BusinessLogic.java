@@ -14,10 +14,8 @@ public class BusinessLogic {
 	}
 	
 	public static Collection<Item> getItems(String filter) {
-		// the first time we call this we will read in our items from our database
 		if (filter == null)
 			return database.values();
-		// TODO: otherwise, return all values that have "filter" in the name
 		
 		Collection<Item> items = new ArrayList<Item>();
 		
@@ -30,6 +28,7 @@ public class BusinessLogic {
 		return items;
 	}
 	
+	// TODO finish this
 	public static double purchaseItem(String name, int count) {
 		Item item = database.remove(name);
 		int current = item.getStock();

@@ -1,14 +1,16 @@
 package Parsing;
 
+import java.lang.reflect.Type;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-
-import jdk.nashorn.internal.parser.JSONParser;
+import com.google.gson.reflect.TypeToken;
 
 public class RPCResponse {
 	double version;
 	int status;
+	// TODO: see if we can just do an Object[] instead?
 	JsonArray response;
 	Object fault;
 
@@ -21,8 +23,13 @@ public class RPCResponse {
 		if (response == null)
 			response = new JsonArray();
 		Gson gson=new Gson();
-		JsonElement element=gson.fromJson(resp,JsonElement.class);
-		response.add(element);
+		
+		response.add(gson.fromJson(resp,JsonElement.class));
+	}
+	
+	public String toJson() {
+		Type rpctype = new TypeToken<RPCResponse>() {}.getType();
+		return new Gson().toJson(this, rpctype);
 	}
 	
 }

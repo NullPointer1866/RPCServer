@@ -16,7 +16,7 @@ public class BusinessLogic {
 	}
 	
 	/**
-	 * initialize the database and put a few items in it just for testing
+	 * Initialize the database and put a few items in it just for testing
 	 */
 	private static void ForTesting_DeleteLater() {
 		database = new HashMap<String, Item>();
@@ -27,7 +27,7 @@ public class BusinessLogic {
 		database.put("shoes", shoes);
 	}
 	
-	// TODO: test this once we have a DB
+
 	public static Collection<Item> getItems(String filter) {
 		if (filter == null)
 			return database.values();
@@ -43,7 +43,12 @@ public class BusinessLogic {
 		return items;
 	}
 	
-
+/**
+ * Purchases count of the specified item and decreases the stock accordingly
+ * @param name The name of the item the client would like to purchase
+ * @param count The amount of the item the client would like to purchase
+ * @return The price of the purchase or -1 if the parameters are invalid.
+ */
 	public static double purchaseItem(String name, int count) {
 		Item item = database.remove(name);
 		if (item == null) {
@@ -66,7 +71,8 @@ public class BusinessLogic {
 	//update the database every time we change anything
 	// for now, update will just write our dictionary back to the flatfile, but if we want to get fancy, we can implement a cooler method
 	private static void update() {
-		// TODO Auto-generated method stub
+		// TODO fill out method
+		// TODO determine if this method should be private / where it would be called
 		
 	}
 }

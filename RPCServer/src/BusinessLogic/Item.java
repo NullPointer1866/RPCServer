@@ -20,8 +20,12 @@ public class Item {
 		return price;
 	}
 	
-	/// decreases the quantity of the Item by amount
-	// returns the updated quantity.
+
+	/**
+	 * Decreases the quantity of the Item by amount
+	 * @param amount the number of items to decreased the stock by
+	 * @return the updated stock of the item
+	 */
 	protected int decreaseQuantity(int amount) {
 		stock -= amount;
 		return stock;

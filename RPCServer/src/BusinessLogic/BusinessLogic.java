@@ -1,7 +1,9 @@
 package BusinessLogic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class BusinessLogic {
 
@@ -17,8 +19,15 @@ public class BusinessLogic {
 			return database.values();
 		// TODO: otherwise, return all values that have "filter" in the name
 		
-		return null;
+		Collection<Item> items = new ArrayList<Item>();
 		
+		for (Entry<String, Item> item : database.entrySet()) {
+			if (item.getKey().contains(filter)) {
+				items.add(item.getValue());
+			}
+		}
+		
+		return items;
 	}
 	
 	public static double purchaseItem(String name, int count) {

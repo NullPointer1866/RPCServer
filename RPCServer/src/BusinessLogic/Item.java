@@ -31,6 +31,10 @@ public class Item {
 		return stock;
 	}
 	
+	public String toString() {
+		return(name + ": stock: " + stock + " price: $" + price);
+	}
+	
 	
 	
 }

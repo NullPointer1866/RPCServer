@@ -17,26 +17,8 @@ import com.google.gson.reflect.TypeToken;
 public class BusinessLogic {
 
 	private static Map<String, Item> database;
-	
-	public BusinessLogic() {
-		database = null;
-		ForTesting_DeleteLater();
-	}
-	
-	/**
-	 * Initialize the database and put a few items in it just for testing
-	 */
-	private static void ForTesting_DeleteLater() {
-		database = new HashMap<String, Item>();
-		Item socks = new Item("socks", 12, 2.5);
-		database.put("socks", socks);
-		
-		Item shoes = new Item("shoes", 5, 15.0);
-		database.put("shoes", shoes);
-	}
-	
 
-	public static Collection<Item> getItems(String filter) {
+	public static synchronized Collection<Item> getItems(String filter) {
 		if (filter == null)
 			return database.values();
 		
@@ -58,7 +40,7 @@ public class BusinessLogic {
  * @return The price of the purchase or -1 if the parameters are invalid.
  * @throws IOException 
  */
-	public static double purchaseItem(String name, int count) throws IOException {
+	public static synchronized double purchaseItem(String name, int count) throws IOException {
 		Item item = database.remove(name);
 		if (item == null) {
 			return -1;
@@ -79,7 +61,7 @@ public class BusinessLogic {
 
 	//update the database every time we change anything
 	// for now, update will just write our dictionary back to the flatfile, but if we want to get fancy, we can implement a cooler method
-	private static void update() throws IOException {
+	private static synchronized void update() throws IOException {
 		try(FileWriter fw = new FileWriter("src/flatFileDB.json")) {
 			Gson gson = new Gson();
 			
@@ -101,6 +83,7 @@ public class BusinessLogic {
 			Gson gson = new Gson();
 			
 			database = gson.fromJson(br, new TypeToken<HashMap<String, Item>>() {}.getType());
+			System.out.println(database);
 		} catch (IOException e) {
 			
 			System.out.println("There was a problem initing the DB");

@@ -1,1 +1,49 @@
-insert our list of items here in JSON
+{
+    "Thingies" : {
+        "name" : "Thingies",
+        "stock" : 400,
+        "price" : 5.99
+    },
+    
+     "Mouthwash" : {
+        "name" : "Mouthwash",
+        "stock" : 1,
+        "price" : 10000
+    },
+    
+     "Whatchmacallits" : {
+        "name" : "Whatchamacallits",
+        "stock" : 4000,
+        "price" : 0.05
+    },
+    
+     "Bubbas" : {
+        "name" : "Bubbas",
+        "stock" : 25,
+        "price" : 15.95
+    },
+    
+     "Socks" : {
+        "name" : "Socks",
+        "stock" : 100,
+        "price" : 2.50
+    },
+    
+     "Shoes" : {
+        "name" : "Shoes",
+        "stock" : 150,
+        "price" : 14.99
+    },
+    
+     "Frank" : {
+        "name" : "Frank",
+        "stock" : 1,
+        "price" : 1.00
+    },
+    
+     "Not Frank" : {
+        "name" : "Not Frank",
+        "stock" : 40000,
+        "price" : 99.00
+    }
+}

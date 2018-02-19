@@ -67,7 +67,9 @@ public class RequestParser {
 		JsonElement arguments = jobj.get("params");
 		if (arguments == null || arguments.getAsJsonArray().size() != 2) {
 			// 2: missing parameter
-			jsonResponse.fault = "Error: Incorrect Parameters. Please include the name and amount (an integer) of the item you would like to purchase.";
+			jsonResponse.fault = "Error: Incorrect Parameters. "
+					+ "Please include the name and amount (an integer) "
+					+ "of the item you would like to purchase.";
 			jsonResponse.status = 2;
 			return jsonResponse;
 		}

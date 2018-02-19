@@ -1,10 +1,17 @@
 package BusinessLogic;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class BusinessLogic {
 
@@ -75,4 +82,21 @@ public class BusinessLogic {
 		// TODO determine if this method should be private / where it would be called
 		
 	}
+
+	public static void initDB() throws FileNotFoundException {
+		
+		try(BufferedReader br = new BufferedReader(new FileReader("src/flatFileDB.json"))){
+			
+			Gson gson = new Gson();
+			
+			database = gson.fromJson(br, new TypeToken<HashMap<String, Item>>() {}.getType());
+		} catch (IOException e) {
+			
+			System.out.println("There was a problem initing the DB");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 }

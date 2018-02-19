@@ -21,7 +21,7 @@ public class BusinessLogic {
 	public static synchronized Collection<Item> getItems(String filter) {
 		if (filter == null)
 			return database.values();
-		
+		filter = filter.toLowerCase();
 		Collection<Item> items = new ArrayList<Item>();
 		
 		for (Entry<String, Item> item : database.entrySet()) {
@@ -41,6 +41,7 @@ public class BusinessLogic {
  * @throws IOException 
  */
 	public static synchronized double purchaseItem(String name, int count) throws IOException {
+    name = name.toLowerCase();
 		Item item = database.remove(name);
 		if (item == null) {
 			return -1;

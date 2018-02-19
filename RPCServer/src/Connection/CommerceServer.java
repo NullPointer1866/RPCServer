@@ -25,7 +25,7 @@ public class CommerceServer {
 		
 		BusinessLogic.initDB();
 		
-		System.out.println("DB init");
+		System.out.println(">> DB init");
 		
 		// Set up Timeout and Delay config
 		final IOReactorConfig config = IOReactorConfig.custom()

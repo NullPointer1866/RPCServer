@@ -1,5 +1,6 @@
 package Parsing;
 
+import java.io.IOException;
 import java.util.Collection;
 import com.google.gson.*;
 import BusinessLogic.BusinessLogic;
@@ -88,7 +89,7 @@ public class RequestParser {
 					jsonResponse.addToResponse(price);
 
 			}
-			catch (NumberFormatException e) {
+			catch (NumberFormatException | IOException e) {
 				jsonResponse.fault = "Error: Parameter type issue. Please include the name and amount (an integer) of the item you would like to purchase.";
 				jsonResponse.status = 1; // param type issue
 				

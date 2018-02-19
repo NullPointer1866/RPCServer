@@ -40,7 +40,7 @@ public class BusinessLogic {
  * @return The price of the purchase or -1 if the parameters are invalid.
  * @throws IOException 
  */
-	public static synchronized double purchaseItem(String name, int count) throws IOException {
+	public static synchronized double purchase(String name, int count) throws IOException {
     name = name.toLowerCase();
 		Item item = database.remove(name);
 		if (item == null) {

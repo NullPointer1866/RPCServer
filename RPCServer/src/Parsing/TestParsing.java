@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import BusinessLogic.BusinessLogic;
+
 public class TestParsing {
 
 	public static void RPCResponseToJson() {
@@ -19,8 +21,10 @@ public class TestParsing {
 	
 	public static void main(String[] args) throws IOException {
 		
+		BusinessLogic.initDB();
+		
 		BufferedReader reader = new BufferedReader(new FileReader(new File("requestExample.json")));
-		String[] json = new String[9];
+		String[] json = new String[1];
 		for (int i = 0; i < json.length; i++) {
 			json[i] = reader.readLine();
 		}
@@ -42,7 +46,7 @@ public class TestParsing {
 		}
 		
 		System.out.println("Test of RPCResponse.toJson method: ");
-		RPCResponseToJson();
+		// RPCResponseToJson();
 		
 	}
 

@@ -38,6 +38,7 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 	public void handle(HttpRequest request, HttpAsyncExchange httpExchange, HttpContext context)
 			throws HttpException, IOException {
 		System.out.println(">> Got request");
+		System.out.println(">> " + request);
 		final HttpResponse response = httpExchange.getResponse();
 		handleInternal((HttpEntityEnclosingRequest) request, response, context);
 		httpExchange.submitResponse(new BasicAsyncResponseProducer(response));
@@ -61,7 +62,8 @@ public class ConnectionHandler implements HttpAsyncRequestHandler<HttpRequest> {
 
 		// Get the entity and pull the message from it
 		String jsonString = EntityUtils.toString(request.getEntity());
-
+		System.out.println(">> " + jsonString);
+		
 		RequestParser parser = new RequestParser();
 
 		// Pass the string to the parser, which should return 

@@ -31,7 +31,7 @@ public class BusinessLogic {
 	public static Collection<Item> getItems(String filter) {
 		if (filter == null)
 			return database.values();
-		
+		filter = filter.toLowerCase();
 		Collection<Item> items = new ArrayList<Item>();
 		
 		for (Entry<String, Item> item : database.entrySet()) {
@@ -50,6 +50,7 @@ public class BusinessLogic {
  * @return The price of the purchase or -1 if the parameters are invalid.
  */
 	public static double purchase(String name, int count) {
+		name = name.toLowerCase();
 		Item item = database.remove(name);
 		if (item == null) {
 			return -1;

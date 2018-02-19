@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import BusinessLogic.BusinessLogic;
-
 public class TestParsing {
 
 	public static void RPCResponseToJson() {
@@ -21,14 +19,12 @@ public class TestParsing {
 	
 	public static void main(String[] args) throws IOException {
 		
-		BusinessLogic db = new BusinessLogic();
-		
 		BufferedReader reader = new BufferedReader(new FileReader(new File("requestExample.json")));
 		String[] json = new String[9];
 		for (int i = 0; i < json.length; i++) {
 			json[i] = reader.readLine();
 		}
-		
+		reader.close();
 				
 		// 0: call to getItems with no filter in the params element
 		// 1: call to getItems with no params element

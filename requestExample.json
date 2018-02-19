@@ -1,4 +1,4 @@
-{"version" : 1.0, "methodName" : "getItems",  "params" : [ ]}
+{"version" : 1.0, "methodName" : "getItems",  "params" : [""]}
 {"version" : 1.0, "methodName" : "getItems"}
 {"version" : 1.0, "methodName" : "getItems",  "params" : [ "shoes" ]}
 {"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ "socks", 2 ]}

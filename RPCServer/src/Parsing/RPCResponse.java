@@ -20,8 +20,6 @@ public class RPCResponse {
 	public void addToResponse(Object resp) {
 		if (response == null)
 			response = new ArrayList<Object>();
-		Gson gson=new Gson();
-		
 		response.add(resp);
 	}
 	

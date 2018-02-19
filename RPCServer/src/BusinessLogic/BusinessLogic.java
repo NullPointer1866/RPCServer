@@ -49,7 +49,7 @@ public class BusinessLogic {
  * @param count The amount of the item the client would like to purchase
  * @return The price of the purchase or -1 if the parameters are invalid.
  */
-	public static double purchaseItem(String name, int count) {
+	public static double purchase(String name, int count) {
 		Item item = database.remove(name);
 		if (item == null) {
 			return -1;

@@ -33,8 +33,8 @@ public class RequestParser {
 	private String callMethod(String methodName) {
 		RPCResponse response;
 
-		if (methodName.equals("purchaseItem")) {
-			response = purchaseItem();
+		if (methodName.equals("purchase")) {
+			response = purchase();
 		}
 		else if (methodName.equals("getItems")) {
 			response = getItems();
@@ -58,7 +58,7 @@ public class RequestParser {
 		return methodName;
 	}
 
-	private RPCResponse purchaseItem() {
+	private RPCResponse purchase() {
 		// turn json into an item, extract name
 		RPCResponse jsonResponse = new RPCResponse();
 		
@@ -76,7 +76,7 @@ public class RequestParser {
 			try {
 				String itemName = params.get(0).getAsString();
 				int count = params.get(1).getAsInt();
-				Double price = BusinessLogic.purchaseItem(itemName, count);
+				Double price = BusinessLogic.purchase(itemName, count);
 
 				if (price < 0) {
 					jsonResponse.fault = "Error: Precondition violation. Incorrect item name or not enough items in stock";

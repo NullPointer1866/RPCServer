@@ -105,7 +105,7 @@ public class RequestParser {
 
 		JsonElement arguments = jobj.get("params");
 		String filter;
-		if (arguments == null || arguments.getAsJsonArray().size() == 0) {
+		if (arguments == null || arguments == JsonNull.INSTANCE || arguments.getAsJsonArray().size() == 0) {
 			filter = null;
 		}
 		else {

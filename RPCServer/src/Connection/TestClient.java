@@ -47,8 +47,14 @@ public class TestClient {
 		DefaultBHttpClientConnection conn = new DefaultBHttpClientConnection(8 * 1024);
 		ConnectionReuseStrategy strategy = DefaultConnectionReuseStrategy.INSTANCE;
 		
-		String jsonString = "{\"name\" : \"Frank\"}";
-		HttpEntity entity = new NStringEntity(jsonString, ContentType.create("application/json", Consts.UTF_8));
+		String getItemsjsonString = "{\"version\" : 1.0, "
+				+ "\"methodName\" : \"getItems\","
+				+ "\"params\" : []}";
+		
+		String purchaseItemsjsonString = "{\"version\" : 1.0, "
+				+ "\"methodName\" : \"purchaseItem\","
+				+ "\"params\" : [\"Socks\" , 2]}";
+		HttpEntity entity = new NStringEntity(purchaseItemsjsonString, ContentType.create("application/json", Consts.UTF_8));
 		
 		try {
 			if(!conn.isOpen()) {

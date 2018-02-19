@@ -6,6 +6,8 @@ import org.apache.http.ExceptionLogger;
 import org.apache.http.impl.nio.bootstrap.HttpServer;
 import org.apache.http.impl.nio.bootstrap.ServerBootstrap;
 import org.apache.http.impl.nio.reactor.IOReactorConfig;
+
+import BusinessLogic.BusinessLogic;
 /**
  * Server object which passes connections to
  * a handler.
@@ -20,6 +22,10 @@ public class CommerceServer {
 		
 		// Establish port Number
 		int portNumber = 6666;
+		
+		BusinessLogic.initDB();
+		
+		System.out.println(">> DB init");
 		
 		// Set up Timeout and Delay config
 		final IOReactorConfig config = IOReactorConfig.custom()

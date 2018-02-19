@@ -5,9 +5,7 @@
 	<classpathentry kind="lib" path="RPCServer/httpcomponents-core-4.4.9/lib/httpcore-4.4.9.jar"/>
 	<classpathentry kind="lib" path="RPCServer/httpcomponents-core-4.4.9/lib/httpcore-ab-4.4.9.jar"/>
 	<classpathentry kind="lib" path="RPCServer/httpcomponents-core-4.4.9/lib/httpcore-nio-4.4.9.jar"/>
-	<classpathentry kind="lib" path="RPCServer/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="RPCServer/httpcomponents-core-4.4.9/lib/gson-2.2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Chloe/Downloads/gson-2.2.2.jar/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

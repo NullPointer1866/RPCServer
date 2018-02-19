@@ -1,0 +1,9 @@
+{"version" : 1.0, "methodName" : "getItems",  "params" : [ ]}
+{"version" : 1.0, "methodName" : "getItems"}
+{"version" : 1.0, "methodName" : "getItems",  "params" : [ "shoes" ]}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ "socks", 2 ]}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ 3, "socks" ]}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ "shoes", 500 ]}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : [ "shoes" ]}
+{"version" : 1.0, "methodName" : "purchaseItem"}
+{"version" : 1.0, "methodName" : "purchaseItem",  "params" : []}
